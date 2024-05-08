@@ -67,7 +67,24 @@ namespace S7
                 StatusMessage=string.Format("PERSONA NO ELIMINADA:{0}",ex.Message);
             }
         }
-
+        public void ActualizarPersona(int id, string newName)
+        {
+            try
+            {
+                Init();
+                if (string.IsNullOrEmpty(newName))
+                    throw new Exception("INGRESE ES REQUERIDO");
+                Persona person = conn.Get<Persona>(id);
+                if (person == null) throw new Exception("PERSONA NO EXISTE");
+                person.Name = newName;
+                int result = conn.Update(person);
+                StatusMessage = string.Format("{0} registro actualizado", result);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("REGISTRO NO ACTUALIZADO:{0}", ex.Message);
+            }
+        }
 
 
         public List<Persona> getAllPeople()

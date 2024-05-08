@@ -26,9 +26,18 @@ public partial class vPersona
         listaPersona.ItemsSource = personas;
         lblStatus.Text = App.personRepo.StatusMessage;
     }
-
+    // cambio reporitoio
     private void btnActualizar_Clicked(object sender, EventArgs e)
     {
+        lblStatus.Text = "";
+        if (!string.IsNullOrEmpty(txtId.Text))
+        {
+            App.personRepo.ActualizarPersona(int.Parse(txtId.Text),txtNombre.Text);
+            lblStatus.Text = App.personRepo.StatusMessage;
+        }
+        else
+            DisplayAlert("Error", "Por favor ingresar un ID", "Cerrar");
+
 
     }
 
